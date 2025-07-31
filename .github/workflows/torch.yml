@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         platform: [ linux/arm/v7, linux/arm64/v8 ]
-        pythonlabel: [ 3.10-buster, 3.11-buster, 3.9-buster ]
+        pythonlabel: [ 3.11-bullseye, 3.10-bullseye, 3.9-bullseye ]
 
     steps:
       - uses: actions/checkout@v2
@@ -50,8 +50,8 @@ jobs:
             --build-arg FROMPLATFORM=${{ matrix.platform }} \
             --tag ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage1:${{ env.TAGNAME }} \
             --file Dockerfile.stage1 .
-      
-      # Uncomment and adjust the below for additional pipeline stages
+
+      # Repeat below for stages 2-7 as needed, for example:
       #- name: Build PyTorch Stage 2
       #  run: |
       #    docker buildx build --platform=${{ matrix.platform }} \
@@ -63,4 +63,4 @@ jobs:
       #      --tag ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage2:${{ env.TAGNAME }} \
       #      --file Dockerfile.stage2 .
       #
-      # ...Repeat for Dockerfile.stage3 to Dockerfile.stage7 as needed...
+      # ...extend as needed for all build stages...
