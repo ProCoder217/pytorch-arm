@@ -51,16 +51,68 @@ jobs:
             --tag ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage1:${{ env.TAGNAME }} \
             --file Dockerfile.stage1 .
 
-      # Repeat below for stages 2-7 as needed, for example:
-      #- name: Build PyTorch Stage 2
-      #  run: |
-      #    docker buildx build --platform=${{ matrix.platform }} \
-      #      --build-arg pythonlabel=${{ matrix.pythonlabel }} \
-      #      --build-arg GITHUB_USER=${{ env.LOWER_OWNER }} \
-      #      --build-arg TORCHTAG=${{ env.TORCHTAG }} \
-      #      --build-arg FROMPLATFORM=${{ matrix.platform }} \
-      #      --build-arg FROMIMAGE=ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage1:${{ env.TAGNAME }} \
-      #      --tag ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage2:${{ env.TAGNAME }} \
-      #      --file Dockerfile.stage2 .
-      #
-      # ...extend as needed for all build stages...
+      - name: Build PyTorch Stage 2
+        run: |
+          docker buildx build --platform=${{ matrix.platform }} \
+            --build-arg pythonlabel=${{ matrix.pythonlabel }} \
+            --build-arg GITHUB_USER=${{ env.LOWER_OWNER }} \
+            --build-arg TORCHTAG=${{ env.TORCHTAG }} \
+            --build-arg FROMPLATFORM=${{ matrix.platform }} \
+            --build-arg FROMIMAGE=ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage1:${{ env.TAGNAME }} \
+            --tag ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage2:${{ env.TAGNAME }} \
+            --file Dockerfile.stage2 .
+
+      - name: Build PyTorch Stage 3
+        run: |
+          docker buildx build --platform=${{ matrix.platform }} \
+            --build-arg pythonlabel=${{ matrix.pythonlabel }} \
+            --build-arg GITHUB_USER=${{ env.LOWER_OWNER }} \
+            --build-arg TORCHTAG=${{ env.TORCHTAG }} \
+            --build-arg FROMPLATFORM=${{ matrix.platform }} \
+            --build-arg FROMIMAGE=ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage2:${{ env.TAGNAME }} \
+            --tag ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage3:${{ env.TAGNAME }} \
+            --file Dockerfile.stage3 .
+
+      - name: Build PyTorch Stage 4
+        run: |
+          docker buildx build --platform=${{ matrix.platform }} \
+            --build-arg pythonlabel=${{ matrix.pythonlabel }} \
+            --build-arg GITHUB_USER=${{ env.LOWER_OWNER }} \
+            --build-arg TORCHTAG=${{ env.TORCHTAG }} \
+            --build-arg FROMPLATFORM=${{ matrix.platform }} \
+            --build-arg FROMIMAGE=ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage3:${{ env.TAGNAME }} \
+            --tag ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage4:${{ env.TAGNAME }} \
+            --file Dockerfile.stage4 .
+
+      - name: Build PyTorch Stage 5
+        run: |
+          docker buildx build --platform=${{ matrix.platform }} \
+            --build-arg pythonlabel=${{ matrix.pythonlabel }} \
+            --build-arg GITHUB_USER=${{ env.LOWER_OWNER }} \
+            --build-arg TORCHTAG=${{ env.TORCHTAG }} \
+            --build-arg FROMPLATFORM=${{ matrix.platform }} \
+            --build-arg FROMIMAGE=ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage4:${{ env.TAGNAME }} \
+            --tag ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage5:${{ env.TAGNAME }} \
+            --file Dockerfile.stage5 .
+
+      - name: Build PyTorch Stage 6
+        run: |
+          docker buildx build --platform=${{ matrix.platform }} \
+            --build-arg pythonlabel=${{ matrix.pythonlabel }} \
+            --build-arg GITHUB_USER=${{ env.LOWER_OWNER }} \
+            --build-arg TORCHTAG=${{ env.TORCHTAG }} \
+            --build-arg FROMPLATFORM=${{ matrix.platform }} \
+            --build-arg FROMIMAGE=ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage5:${{ env.TAGNAME }} \
+            --tag ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage6:${{ env.TAGNAME }} \
+            --file Dockerfile.stage6 .
+
+      - name: Build PyTorch Stage 7
+        run: |
+          docker buildx build --platform=${{ matrix.platform }} \
+            --build-arg pythonlabel=${{ matrix.pythonlabel }} \
+            --build-arg GITHUB_USER=${{ env.LOWER_OWNER }} \
+            --build-arg TORCHTAG=${{ env.TORCHTAG }} \
+            --build-arg FROMPLATFORM=${{ matrix.platform }} \
+            --build-arg FROMIMAGE=ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage6:${{ env.TAGNAME }} \
+            --tag ghcr.io/${{ env.LOWER_OWNER }}/pytorch-arm/stage7:${{ env.TAGNAME }} \
+            --file Dockerfile.stage7 .
