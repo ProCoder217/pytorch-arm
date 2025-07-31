@@ -4,21 +4,13 @@ ARG FROMIMAGE
 FROM --platform=${FROMPLATFORM} ${FROMIMAGE}
 
 VOLUME [ "/out" ]
+WORKDIR /src/torch/pytorch
 
-RUN \
-  cd pytorch && \
-  python setup.py build && \
-  ls -lah build/ && \
-  cd build/lib.*/torch || cd build/lib/torch && \
-  ln -s _C.*.so _C.so || : && \
-  ln -s _C_flatbuffer.*.so _C_flatbuffer.so || : && \
-  cd ../functorch && \
-  ln -s _C.*.so _C.so || : && \
-  #ln -s _dl.*.so _dl.so || : && \
-  ls -lah && \
-  cd ../../.. && \
-  python setup.py bdist_wheel && \
-  python setup.py install
+RUN python setup.py bdist_wheel && \
+    python setup.py install
 
+RUN cd build/lib.*/torch 2>/dev/null || cd build/lib/torch; \
+    ln -sf _C.*.so _C.so || :; \
+    ln -sf _C_flatbuffer.*.so _C_flatbuffer.so || :
 
-ENTRYPOINT [ "/bin/bash", "cp", "--archive", "/src/torch", "/out" ]
+CMD ["cp", "-r", "--archive", "/src/torch", "/out"]
