@@ -36,13 +36,12 @@ index 9b23af5..7e47aca 100644
 diff --git a/third_party/pybind11/include/pybind11/detail/common.h b/include/pybind11/detail/common.h
 index 1da323f..d2f2ef7 100644
 --- a/third_party/pybind11/include/pybind11/detail/common.h
-+++ b/third_party/pybind11/include/pybind11/detail/common.h
++++ b/include/pybind11/detail/common.h
 @@ -407,7 +407,7 @@ using size_t = std::size_t;
-
+ 
  template <typename IntType>
  inline ssize_t ssize_t_cast(const IntType &val) {
 -    static_assert(sizeof(IntType) <= sizeof(ssize_t), "Implicit narrowing is not permitted.");
 +    //static_assert(sizeof(IntType) <= sizeof(ssize_t), "Implicit narrowing is not permitted.");
      return static_cast<ssize_t>(val);
  }
-
