@@ -3,7 +3,7 @@ ARG FROMPLATFORM=${TARGETPLATFORM}
 ARG FROMIMAGE
 FROM --platform=${FROMPLATFORM} ${FROMIMAGE}
 
-COPY arm.patch /src/torch/arm.patch
-RUN \
-  cd pytorch && \
-  timeout --preserve-status --kill-after=330m --verbose 300m python setup.py build || :
+WORKDIR /src/torch/pytorch
+
+RUN timeout --preserve-status --kill-after=330m --verbose 300m \
+    python setup.py build
